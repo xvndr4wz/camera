@@ -34,12 +34,12 @@
       </a>
     </div>
     <div class="header">
-      <div class="brand-label">Bypass V2.0</div>
+      <div class="brand-label">Bypass Glitch V2</div>
       <div class="title-wrap">
         <div class="h1-top" id="h1Top"></div>
 
       </div>
-      <p class="subtitle">High Quality TikTok Video — Zero Compression</p>
+      <p class="subtitle">High FPS TikTok Video</p>
 
       <div class="social-links">
         <a href="https://www.tiktok.com/@senzeyn" target="_blank" rel="noopener noreferrer" class="social-btn social-btn--tiktok">
@@ -81,13 +81,11 @@
           <div class="info-content">
             <div class="divider"></div>
             <ul class="feature-list">
-              Use 1080p 60 FPS Resolution for more optimal video and no Bugs!<br>
+              Use the wink app then turn on frame interpolation to increase the fps to 120-240fps!<br>
               <br>Features :<br>
               <li>Free Full Access</li>
-              <li>High Quality Video — 0 Compression</li>
-              <li>Support Up To 1080p 60 FPS All Region</li>
-              <li>No Stuck Video On TikTok</li>
-              <li>Video Optimizer</li>
+              <li>High FPS Video</li>
+              <li>Support Up To 1080p 240 FPS</li>
               <li>Support Mobile & PC</li>
               <li>Support All Browser</li>
             </ul>
@@ -101,7 +99,7 @@
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polygon points="5 3 19 12 5 21 5 3"/>
         </svg>
-        Full Tutorial & Upload (With Extension)
+        Full Tutorial & Upload (With Add Sound)
         <svg class="tutorial-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="6 9 12 15 18 9"></polyline>
         </svg>
@@ -140,6 +138,28 @@
       </div>
     </div>
 
+    <div class="card itsscale-card">
+      <div class="itsscale-toggle-row">
+        <div class="itsscale-toggle-info">
+          <span class="itsscale-toggle-title">Mode</span>
+          <span class="itsscale-toggle-sub" id="itsscaleToggleSub">Automatic</span>
+        </div>
+        <label class="switch" id="itsscaleSwitchLabel">
+          <input type="checkbox" id="itsscaleSwitch">
+          <span class="switch-track">
+            <span class="switch-thumb"></span>
+          </span>
+        </label>
+      </div>
+      <div class="itsscale-manual-body" id="itsscaleManualBody">
+        <div class="itsscale-manual-options" id="itsscaleOptions">
+          <button class="itsscale-btn" data-value="2"><span>60 FPS</span></button>
+          <button class="itsscale-btn" data-value="4"><span>120 FPS</span></button>
+          <button class="itsscale-btn" data-value="8"><span>240 FPS</span></button>
+        </div>
+      </div>
+    </div>
+
     <div class="card upload-card">
       <div class="file-input-wrapper">
         <input type="file" id="fileInput" class="file-input" accept="video/mp4,video/quicktime">
@@ -152,7 +172,7 @@
             </svg>
           </div>
           <div class="file-drop-label">Select Video File</div>
-          <div class="file-drop-hint">MP4 — up to 1080p 60 FPS</div>
+          <div class="file-drop-hint">MP4 or MOV — up to 1080p 240 FPS</div>
         </div>
       </div>
       <div class="file-info" id="fileInfo">
@@ -160,6 +180,7 @@
         <strong>FrameRate :</strong> <span id="fileFps"></span><br><br>
         <strong>Size :</strong> <span id="fileSize"></span><br>
       </div>
+
     </div>
 
     <div class="process-wrap">
